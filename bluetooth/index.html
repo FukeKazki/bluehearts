@@ -1,0 +1,77 @@
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!--    <link rel="stylesheet" href="css/flat-ui.min.css" />-->
+<!--    <link rel="stylesheet" href="css/index.css" />-->
+
+<!--    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@1.8.0"></script>-->
+
+<!--    <script src="./main.js"></script>-->
+    <div class="wrapper">
+        <div class="heart">
+            <div class="beatBpm">-</div>
+        </div>
+    </div>
+    <title>chart.js</title>
+</head>
+<body>
+<!--<div id="search-button" class="show">-->
+<!--    <div class="view-inner">-->
+<!--        <div class="btn btn-block btn-lg btn-primary">SEARCH</div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<style>
+    .wrapper {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .beatBpm {
+        z-index: 10000000000000;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -70%);
+        font-size: 40px;
+        color: white;
+    }
+    .heart {
+        width: 300px;  /* 正方形を作る */
+        height: 300px; /* 正方形を作る */
+        position: relative;/* 基準位置とする */
+    }
+    .heart::before,
+    .heart::after {
+        content: "";  /* 疑似要素に必須 */
+        width: 50%;   /* ハートの丸い部分の大きさにかかわる */
+        height: 80%;  /* ハートの高さにかかわる */
+        background: #E0548E; /* ハートの色 */
+        border-radius: 75px 75px 0 0; /* ハートの半円を生成 */
+        display: block; /* ブロック要素にする */
+        position: absolute; /* 相対位置に指定 */
+    }
+    .heart::before {
+        transform: rotate(-45deg); /* 左に回転 */
+        left: 14%;                 /* 左からの位置を指定 */
+    }
+    .heart::after {
+        transform: rotate(45deg);  /* 右に回転 */
+        right: 14%;                /* 右からの位置を指定 */
+    }
+</style>
+
+<!--<canvas id="myChart" width="400" height="350"></canvas>-->
+<script src='./bluetooth.js'></script>
+</body>
+</html>
