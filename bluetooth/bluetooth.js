@@ -3,7 +3,44 @@ const SERVICE_UUID = "d5875408-fa51-4763-a75d-7d33cecebc31";
 const RX_CHARACTERISTIC_UUID = "a4f01d8c-a037-43b6-9050-1876a8c23584";
 // const TX_CHARACTERISTIC_UUID = "a4f01d8c-a037-43b6-9050-1876a8c23584";
 
-(async function() {
+(function() {
+   document.querySelector('#fuck').addEventListener("click", fuck)
+})()
+
+async function fuck() {
+    const ctx = document.querySelector('#mychart')
+    const bpms = [0]
+    const labels = [0]
+    let index = 0
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'bpm',
+                data: bpms,
+                borderColor: '#E0548E',
+                backgroundColor: "#fff"
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            tooltips: {
+                enabled: false
+            },
+            scales: {
+                yAxes: [{
+                    display: false
+                }],
+                xAxes: [{
+                    display: false
+                }]
+            }
+        }
+    })
+
     if ("bluetooth" in window.navigator) {
         const bluetooth = window.navigator["bluetooth"];
         // 1. device 情報取得
@@ -30,7 +67,6 @@ const RX_CHARACTERISTIC_UUID = "a4f01d8c-a037-43b6-9050-1876a8c23584";
         if(characteristic.properties.notify) {
             const handler = (event) => {
                 const dataView = event.target.value
-                // console.log(dataView.buffer)
                 const bpm = (new TextDecoder).decode(dataView.buffer)
 
                 const heart = document.querySelector('.heart')
@@ -46,11 +82,15 @@ const RX_CHARACTERISTIC_UUID = "a4f01d8c-a037-43b6-9050-1876a8c23584";
 
                 const beatBpm = document.querySelector('.beatBpm')
                 beatBpm.innerHTML = bpm;
+                bpms.push(Number(bpm))
+                index += 1;
+                labels.push(index)
+                myChart.update()
             }
             characteristic.addEventListener("characteristicvaluechanged", handler);
             characteristic.startNotifications();
         }
     }
-}())
+}
 
 
